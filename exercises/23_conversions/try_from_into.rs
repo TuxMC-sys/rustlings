@@ -41,13 +41,34 @@ enum IntoColorError {
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        let red: Result<u8, Self::Error> = Ok(tuple.0 as u8);
+        let green: Result<u8, Self::Error> = Ok(tuple.1 as u8);
+        let blue: Result<u8, Self::Error> = Ok(tuple.2 as u8);
+        match (red, green, blue){
+            (Ok(red), Ok(green), Ok(blue)) => Ok(Color{
+                red: red,
+                green: green,
+                blue: blue
+            }),
+            _ => Err(Self::Error::IntConversion)
+        }
     }
 }
-
 // Array implementation
 impl TryFrom<[i16; 3]> for Color {
     type Error = IntoColorError;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        let red: Result<u8, Self::Error> = Ok(arr[0] as u8);
+        let green: Result<u8, Self::Error> = Ok(arr[1] as u8);
+        let blue: Result<u8, Self::Error> = Ok(arr[2] as u8);
+        match (red, green, blue){
+            (Ok(red), Ok(green), Ok(blue)) => Ok(Color{
+                red: red,
+                green: green,
+                blue: blue
+            }),
+            _ => Err(Self::Error::IntConversion)
+        }
     }
 }
 
@@ -55,6 +76,17 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = IntoColorError;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        let red: Result<u8, Self::Error> = Ok(slice[0] as u8);
+        let green: Result<u8, Self::Error> = Ok(slice[1] as u8);
+        let blue: Result<u8, Self::Error> = Ok(slice[2] as u8);
+        match (red, green, blue){
+            (Ok(red), Ok(green), Ok(blue)) => Ok(Color{
+                red: red,
+                green: green,
+                blue: blue
+            }),
+            _ => Err(Self::Error::IntConversion)
+        }
     }
 }
 
